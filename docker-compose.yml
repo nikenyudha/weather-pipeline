@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  db_postgres:
+    image: postgres:15
+    container_name: my_warehouse
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: weather_db
+    ports:
+      - "5435:5432"
