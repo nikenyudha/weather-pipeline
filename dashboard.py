@@ -70,3 +70,9 @@ while True:
             st.error("Database kosong! Pastikan etl-script.py sudah berjalan.")
 
         time.sleep(refresh_rate)
+
+st.markdown(
+    "<hr style='margin-top:50px;'>"
+    "<center style='color: gray;'>© 2026 Niken Larasati — Multi City Weather Real Time Dashboard 💗</center>",
+    unsafe_allow_html=True
+)
