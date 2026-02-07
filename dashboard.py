@@ -2,10 +2,22 @@ import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
 import time
+import streamlit as st
+import pandas as pd
+from sqlalchemy import create_engine
+import os
+from dotenv import load_dotenv
 
-# 1. Konfigurasi Database
-engine = create_engine('postgresql://postgres:password123@localhost:5435/weather_db')
+db_url = st.secrets.get("DATABASE_URL", None)
 
+if db_url:
+    st.write("Database connected")
+else:
+    st.warning("DATABASE_URL not found")
+engine = create_engine(db_url)
+# ------------------------------
+
+# 1. Setup Streamlit Page
 st.set_page_config(page_title="Multi-City Weather Monitor", layout="wide")
 
 st.title("🌤️ Multi-City Real-time Weather Dashboard")

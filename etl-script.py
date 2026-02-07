@@ -1,10 +1,21 @@
+import os
 import pandas as pd
 import requests
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 import time
 
 # 1. Setting Koneksi
-engine = create_engine('postgresql://postgres:password123@localhost:5435/weather_db')
+load_dotenv()
+db_url = os.getenv("DATABASE_URL")
+
+# CEK ERROR
+print(f"DEBUG: Link Database yang terbaca adalah -> {db_url}")
+
+if db_url is None:
+    print("❌ ERROR: File .env tidak terbaca atau DATABASE_URL kosong!")
+else:
+    engine = create_engine(db_url)
 
 # 2. Daftar Kota (Pindahkan ke luar agar rapi)
 cities = {

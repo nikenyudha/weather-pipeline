@@ -7,3 +7,6 @@ env/
 venv/
 .DS_Store
 .ipynb_checkpoints/
+*.png
+.streamlit/secrets.toml
+.env
