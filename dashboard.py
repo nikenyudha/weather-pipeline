@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 db_url = st.secrets.get("DATABASE_URL", None)
 
@@ -83,8 +83,3 @@ while True:
 
         time.sleep(refresh_rate)
 
-st.markdown(
-    "<hr style='margin-top:50px;'>"
-    "<center style='color: gray;'>© 2026 Niken Larasati — Multi City Weather Real Time Dashboard 💗</center>",
-    unsafe_allow_html=True
-)
