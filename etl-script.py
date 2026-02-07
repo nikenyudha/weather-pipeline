@@ -1,33 +1,47 @@
 import pandas as pd
 import requests
 from sqlalchemy import create_engine
-import time # Tambahkan ini untuk mengatur jeda waktu
+import time
 
-# Setting koneksi
+# 1. Setting Koneksi
 engine = create_engine('postgresql://postgres:password123@localhost:5435/weather_db')
 
+# 2. Daftar Kota (Pindahkan ke luar agar rapi)
+cities = {
+    'Jakarta': {'lat': -6.2146, 'lon': 106.8451},
+    'Surabaya': {'lat': -7.2575, 'lon': 112.7521},
+    'Medan': {'lat': 3.5952, 'lon': 98.6722}
+}
+
 def run_etl():
-    try:
-        # 1. EXTRACT
-        print(f"[{pd.Timestamp.now()}] Mengambil data...")
-        url = "https://api.open-meteo.com/v1/forecast?latitude=-6.2146&longitude=106.8451&current_weather=true"
-        response = requests.get(url).json()
-        data = response['current_weather']
+    print(f"\n--- [{pd.Timestamp.now()}] Memulai Siklus Ingestion ---")
+    
+    for city_name, coord in cities.items():
+        try:
+            # A. EXTRACT
+            print(f"Mengambil data untuk {city_name}...")
+            url = f"https://api.open-meteo.com/v1/forecast?latitude={coord['lat']}&longitude={coord['lon']}&current_weather=true"
+            response = requests.get(url).json()
+            data = response['current_weather'] # Sekarang 'data' didefinisikan di sini
 
-        # 2. TRANSFORM
-        df = pd.DataFrame([data])
-        df['city'] = 'Jakarta'
-        df['extracted_at'] = pd.Timestamp.now()
+            # B. TRANSFORM
+            df = pd.DataFrame([data])
+            df['city'] = city_name
+            df['extracted_at'] = pd.Timestamp.now()
 
-        # 3. LOAD
-        df.to_sql('jakarta_weather', engine, if_exists='append', index=False)
-        print("✅ Data berhasil masuk ke Database.")
-    except Exception as e:
-        print(f"❌ Error terjadi: {e}")
+            # C. LOAD
+            # Kita tetap pakai nama tabel 'jakarta_weather' supaya dashboard kamu tidak error, 
+            # tapi isinya sekarang sudah macam-macam kota.
+            df.to_sql('jakarta_weather', engine, if_exists='append', index=False)
+            print(f"✅ {city_name} berhasil disimpan.")
 
-# LOOP UTAMA
+        except Exception as e:
+            print(f"❌ Gagal memproses {city_name}: {e}")
+
+# 3. LOOP UTAMA
 if __name__ == "__main__":
-    print("🚀 Pipeline Otomatis Dimulai... (Tekan Ctrl+C untuk berhenti)")
+    print("🚀 Multi-City Pipeline Aktif... (Tekan Ctrl+C untuk berhenti)")
     while True:
         run_etl()
-        time.sleep(30) # Tunggu 30 detik sebelum mengambil data lagi
+        print(f"Siklus selesai. Menunggu 30 detik...")
+        time.sleep(30)
