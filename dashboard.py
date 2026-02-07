@@ -2,11 +2,7 @@ import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
 import time
-import streamlit as st
-import pandas as pd
-from sqlalchemy import create_engine
-import os
-from dotenv import load_dotenv
+
 
 db_url = st.secrets.get("DATABASE_URL", None)
 
