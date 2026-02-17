@@ -9,6 +9,7 @@ if db_url:
     st.write("Database connected")
 else:
     st.warning("DATABASE_URL not found")
+    
 engine = create_engine(db_url)
 # ------------------------------
 
