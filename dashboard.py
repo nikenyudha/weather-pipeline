@@ -14,7 +14,7 @@ else:
     try:
         engine = create_engine(db_url)
         # Coba ambil 1 baris saja untuk tes koneksi
-        df = pd.read_sql("SELECT * FROM weather_pipeline LIMIT 1", engine)
+        df = pd.read_sql("SELECT * FROM jakarta_weather LIMIT 1", engine)
         st.write("✅ Koneksi Berhasil! Ini data contoh:")
         st.dataframe(df)
     except Exception as e:
