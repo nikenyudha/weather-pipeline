@@ -1,6 +1,7 @@
+streamlit>=1.30.0
 pandas
 requests
 sqlalchemy
 psycopg2-binary
-streamlit
 python-dotenv
+altair<5.0.0
