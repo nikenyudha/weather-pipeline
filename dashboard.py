@@ -3,7 +3,6 @@ import pandas as pd
 from sqlalchemy import create_engine
 import time
 
-
 db_url = st.secrets.get("DATABASE_URL", None)
 
 if db_url:
