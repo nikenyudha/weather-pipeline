@@ -55,3 +55,18 @@ try:
 
 except Exception as e:
     st.error(f"Error: {e}")
+
+st.subheader("📊 Ringkasan Statistik")
+col1, col2, col3 = st.columns(3)
+col1.metric("Suhu Rata-rata", f"{data['temperature'].mean():.1f} °C")
+col2.metric("Suhu Tertinggi", f"{data['temperature'].max()} °C")
+col3.metric("Suhu Terendah", f"{data['temperature'].min()} °C")
+
+st.subheader("🔍 Korelasi: Suhu vs Kecepatan Angin")
+# Membuat scatter plot untuk melihat hubungan dua variabel
+st.scatter_chart(data=data, x='temperature', y='windspeed')
+
+# Menghitung angka korelasi (Opsional)
+corr = data['temperature'].corr(data['windspeed'])
+st.write(f"Nilai Korelasi: {corr:.2f} (Jika mendekati 1 atau -1, hubungannya kuat)")
+
