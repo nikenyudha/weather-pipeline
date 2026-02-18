@@ -70,3 +70,8 @@ st.scatter_chart(data=data, x='temperature', y='windspeed')
 corr = data['temperature'].corr(data['windspeed'])
 st.write(f"Nilai Korelasi: {corr:.2f} (Jika mendekati 1 atau -1, hubungannya kuat)")
 
+st.markdown(
+    "<hr style='margin-top:50px;'>"
+    "<center style='color: gray;'>© 2026 Niken Larasati —  weather dashboard💗</center>",
+    unsafe_allow_html=True
+)
