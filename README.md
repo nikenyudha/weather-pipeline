@@ -39,7 +39,8 @@ The system consists of three main components:
 
 ### Database
 - PostgreSQL (Neon Serverless Cloud)
-- Infrastructure
+
+### Infrastructure
 - Neon Cloud Platform
 - Docker (for local development)
 
